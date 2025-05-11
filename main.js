@@ -30,10 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > scrollThreshold) {
-      header.classList.add("py-2")
       header.classList.add("shadow-md")
     } else {
-      header.classList.remove("py-2")
       header.classList.remove("shadow-md")
     }
   })
@@ -56,22 +54,22 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     navLinks.forEach((link) => {
-      link.classList.remove("text-indigo-600")
       link.classList.remove("font-semibold")
+      link.classList.remove("text-yellow-300")
 
       if (link.getAttribute("href").substring(1) === current) {
-        link.classList.add("text-indigo-600")
         link.classList.add("font-semibold")
+        link.classList.add("text-yellow-300")
       }
     })
 
     mobileNavLinks.forEach((link) => {
-      link.classList.remove("text-indigo-600")
       link.classList.remove("font-semibold")
+      link.classList.remove("text-yellow-300")
 
       if (link.getAttribute("href").substring(1) === current) {
-        link.classList.add("text-indigo-600")
         link.classList.add("font-semibold")
+        link.classList.add("text-yellow-300")
       }
     })
   })
@@ -82,7 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showProgress() {
     progressBars.forEach((progress) => {
-      progress.style.width = progress.parentElement.getAttribute("data-width")
+      const width = progress.parentElement.querySelector(".flex").lastElementChild.textContent
+      progress.style.width = width
     })
   }
 
@@ -149,9 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
     dots.forEach((dot, index) => {
       if (index === currentIndex) {
         dot.classList.remove("bg-gray-300")
-        dot.classList.add("bg-indigo-600")
+        dot.classList.add("bg-purple-600")
       } else {
-        dot.classList.remove("bg-indigo-600")
+        dot.classList.remove("bg-purple-600")
         dot.classList.add("bg-gray-300")
       }
     })
@@ -220,6 +219,20 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
+  // Animate floating bubbles
+  const bubbles = document.querySelectorAll(".bubble")
+
+  bubbles.forEach((bubble) => {
+    // Add some random movement to each bubble
+    const randomX = Math.random() * 10 - 5
+    const randomY = Math.random() * 10 - 5
+
+    setInterval(() => {
+      const currentTransform = window.getComputedStyle(bubble).transform
+      bubble.style.transform = `${currentTransform} translate(${randomX}px, ${randomY}px)`
+    }, 3000)
+  })
+
   // Parallax Effect for Hero Section
   const heroSection = document.getElementById("home")
 
@@ -229,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const parallaxElements = heroSection.querySelectorAll(".hero-image-container")
 
       parallaxElements.forEach((element) => {
-        element.style.transform = `translateY(${scrollPosition * 0.1}px)`
+        element.style.transform = `translateY(${scrollPosition * 0.05}px)`
       })
     }
   })
